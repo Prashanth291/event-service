@@ -35,4 +35,13 @@ public class VenueMapper {
                 .build();
     }
 
+    public void updateEntity(Venue venue, CreateVenueRequest request) {
+        venue.setName(request.getName());
+        venue.setCity(request.getCity());
+        venue.setState(request.getState());
+        venue.setCountry(request.getCountry());
+        venue.setAddress(request.getAddress());
+        venue.setMaxCapacity(request.getMaxCapacity());
+        venue.setDescription(request.getDescription());
+    }
 }

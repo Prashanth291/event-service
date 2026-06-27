@@ -10,4 +10,7 @@ public interface VenueService {
 
     VenueResponse createVenue(CreateVenueRequest request);
     PageResponse<VenueResponse> getAllVenues(Pageable pageable);
+    VenueResponse getVenueById(Long venueId);
+    VenueResponse updateVenue(Long venueId, CreateVenueRequest request);
+    void deleteVenue(Long venueId);
 }

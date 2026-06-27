@@ -39,4 +39,42 @@ public class VenueController {
                 .data(venueService.getAllVenues(pageable))
                 .build();
     }
+
+    @GetMapping("/{venueId}")
+    public ApiResponse<VenueResponse> getVenueById(
+            @PathVariable Long venueId) {
+
+        return ApiResponse.<VenueResponse>builder()
+                .success(true)
+                .message("Venue fetched successfully.")
+                .data(venueService.getVenueById(venueId))
+                .build();
+    }
+
+    @PutMapping("/{venueId}")
+    public ApiResponse<VenueResponse> updateVenue(
+            @PathVariable Long venueId,
+            @Valid @RequestBody CreateVenueRequest request) {
+
+        VenueResponse response =
+                venueService.updateVenue(venueId, request);
+
+        return ApiResponse.<VenueResponse>builder()
+                .success(true)
+                .message("Venue updated successfully.")
+                .data(response)
+                .build();
+    }
+
+    @DeleteMapping("/{venueId}")
+    public ApiResponse<Void> deleteVenue(
+            @PathVariable Long venueId) {
+
+        venueService.deleteVenue(venueId);
+
+        return ApiResponse.<Void>builder()
+                .success(true)
+                .message("Venue deleted successfully.")
+                .build();
+    }
 }

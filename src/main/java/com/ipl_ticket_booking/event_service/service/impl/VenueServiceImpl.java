@@ -2,6 +2,7 @@ package com.ipl_ticket_booking.event_service.service.impl;
 
 import com.ipl_ticket_booking.event_service.common.dto.PageResponse;
 import com.ipl_ticket_booking.event_service.common.exception.DuplicateResourceException;
+import com.ipl_ticket_booking.event_service.common.exception.ResourceNotFoundException;
 import com.ipl_ticket_booking.event_service.common.util.PageResponseMapper;
 import com.ipl_ticket_booking.event_service.dto.request.CreateVenueRequest;
 import com.ipl_ticket_booking.event_service.dto.response.VenueResponse;
@@ -44,5 +45,48 @@ public class VenueServiceImpl implements VenueService {
                         .map(venueMapper::toResponse);
 
         return PageResponseMapper.from(page);
+    }
+    @Override
+    public VenueResponse getVenueById(Long venueId) {
+
+        Venue venue = findVenueById(venueId);
+        return venueMapper.toResponse(venue);
+    }
+
+    private Venue findVenueById(Long venueId) {
+
+        return venueRepository.findById(venueId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Venue not found with id: " + venueId
+                        ));
+    }
+
+    @Override
+    public VenueResponse updateVenue(Long venueId,
+                                     CreateVenueRequest request) {
+
+        Venue venue = findVenueById(venueId);
+
+        if (venueRepository.existsByNameIgnoreCaseAndIdNot(
+                request.getName(),
+                venueId)) {
+
+            throw new DuplicateResourceException(
+                    "Venue already exists with name: " + request.getName()
+            );
+        }
+
+        venueMapper.updateEntity(venue, request);
+        Venue updatedVenue = venueRepository.save(venue);
+        return venueMapper.toResponse(updatedVenue);
+    }
+
+    @Override
+    public void deleteVenue(Long venueId) {
+
+        Venue venue = findVenueById(venueId);
+
+        venueRepository.delete(venue);
     }
 }

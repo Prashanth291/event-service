@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface VenueRepository extends JpaRepository<Venue, Long> {
 
     Optional<Venue> findByName(String name);
-//    Page<VenueResponse> getAllVenues(Pageable pageable);
     boolean existsByNameIgnoreCase(String name);
+    boolean existsByNameIgnoreCaseAndIdNot(String name, Long id);
 
 }
