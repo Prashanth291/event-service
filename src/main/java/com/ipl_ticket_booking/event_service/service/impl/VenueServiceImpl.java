@@ -89,4 +89,9 @@ public class VenueServiceImpl implements VenueService {
 
         venueRepository.delete(venue);
     }
+
+    @Override
+    public Venue findVenueEntityById(Long venueId) {
+        return findVenueById(venueId);
+    }
 }
