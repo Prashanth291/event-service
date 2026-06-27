@@ -3,9 +3,12 @@ package com.ipl_ticket_booking.event_service.common.util;
 import com.ipl_ticket_booking.event_service.common.dto.PageResponse;
 import org.springframework.data.domain.Page;
 
-public class PageResponseMapper {
+public final class PageUtils {
 
-    public static <T> PageResponse<T> from(Page<T> page) {
+    private PageUtils() {
+    }
+
+    public static <T> PageResponse<T> toPageResponse(Page<T> page) {
 
         return PageResponse.<T>builder()
                 .content(page.getContent())
@@ -19,5 +22,4 @@ public class PageResponseMapper {
                 .hasPrevious(page.hasPrevious())
                 .build();
     }
-
 }

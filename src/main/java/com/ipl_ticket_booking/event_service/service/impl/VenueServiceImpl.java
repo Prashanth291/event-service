@@ -3,7 +3,7 @@ package com.ipl_ticket_booking.event_service.service.impl;
 import com.ipl_ticket_booking.event_service.common.dto.PageResponse;
 import com.ipl_ticket_booking.event_service.common.exception.DuplicateResourceException;
 import com.ipl_ticket_booking.event_service.common.exception.ResourceNotFoundException;
-import com.ipl_ticket_booking.event_service.common.util.PageResponseMapper;
+import com.ipl_ticket_booking.event_service.common.util.PageUtils;
 import com.ipl_ticket_booking.event_service.dto.request.CreateVenueRequest;
 import com.ipl_ticket_booking.event_service.dto.response.VenueResponse;
 import com.ipl_ticket_booking.event_service.entity.Venue;
@@ -44,7 +44,7 @@ public class VenueServiceImpl implements VenueService {
                         .findAll(pageable)
                         .map(venueMapper::toResponse);
 
-        return PageResponseMapper.from(page);
+        return PageUtils.toPageResponse(page);
     }
     @Override
     public VenueResponse getVenueById(Long venueId) {
