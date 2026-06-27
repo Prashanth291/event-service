@@ -1,6 +1,8 @@
 package com.ipl_ticket_booking.event_service.service.impl;
 
+import com.ipl_ticket_booking.event_service.common.dto.PageResponse;
 import com.ipl_ticket_booking.event_service.common.exception.DuplicateResourceException;
+import com.ipl_ticket_booking.event_service.common.util.PageResponseMapper;
 import com.ipl_ticket_booking.event_service.dto.request.CreateVenueRequest;
 import com.ipl_ticket_booking.event_service.dto.response.VenueResponse;
 import com.ipl_ticket_booking.event_service.entity.Venue;
@@ -9,6 +11,8 @@ import com.ipl_ticket_booking.event_service.repository.VenueRepository;
 import com.ipl_ticket_booking.event_service.service.VenueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 @RequiredArgsConstructor
@@ -29,5 +33,16 @@ public class VenueServiceImpl implements VenueService {
         Venue savedVenue = venueRepository.save(venue);
 
         return venueMapper.toResponse(savedVenue);
+    }
+
+    @Override
+    public PageResponse<VenueResponse> getAllVenues(Pageable pageable) {
+
+        Page<VenueResponse> page =
+                venueRepository
+                        .findAll(pageable)
+                        .map(venueMapper::toResponse);
+
+        return PageResponseMapper.from(page);
     }
 }
