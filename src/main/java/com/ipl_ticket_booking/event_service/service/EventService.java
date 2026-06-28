@@ -4,6 +4,7 @@ import com.ipl_ticket_booking.event_service.common.dto.PageResponse;
 import com.ipl_ticket_booking.event_service.dto.request.CreateEventRequest;
 import com.ipl_ticket_booking.event_service.dto.request.UpdateEventRequest;
 import com.ipl_ticket_booking.event_service.dto.response.EventResponse;
+import com.ipl_ticket_booking.event_service.entity.Event;
 import org.springframework.data.domain.Pageable;
 
 public interface EventService {
@@ -17,5 +18,7 @@ public interface EventService {
     EventResponse updateEvent(Long eventId, UpdateEventRequest request);
 
     void deleteEvent(Long eventId);
+
+    Event findEventEntityById(Long eventId);
 
 }

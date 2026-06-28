@@ -81,6 +81,11 @@ public class EventServiceImpl implements EventService {
         eventRepository.delete(event);
     }
 
+    @Override
+    public Event findEventEntityById(Long eventId) {
+        return findEventById(eventId);
+    }
+
     private Event findEventById(Long eventId) {
 
         return eventRepository.findById(eventId)
@@ -106,4 +111,5 @@ public class EventServiceImpl implements EventService {
             );
         }
     }
+
 }
