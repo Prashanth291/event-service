@@ -17,9 +17,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class SeatCategoryServiceImpl implements SeatCategoryService {
 
     private final SeatCategoryRepository seatCategoryRepository;
@@ -43,7 +45,8 @@ public class SeatCategoryServiceImpl implements SeatCategoryService {
         SeatCategory saved =
                 seatCategoryRepository.save(seatCategory);
 
-        return seatCategoryMapper.toResponse(saved);
+        return seatCategoryMapper.toResponse(
+                findSeatCategoryById(eventId, saved.getId()));
     }
 
     @Override
@@ -92,7 +95,9 @@ public class SeatCategoryServiceImpl implements SeatCategoryService {
         SeatCategory updated =
                 seatCategoryRepository.save(seatCategory);
 
-        return seatCategoryMapper.toResponse(updated);
+        return seatCategoryMapper.toResponse(
+                findSeatCategoryById(eventId, seatCategoryId)
+        );
     }
 
     @Override
