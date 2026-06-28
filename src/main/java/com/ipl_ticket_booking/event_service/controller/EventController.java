@@ -74,4 +74,17 @@ public class EventController {
                 .message("Event deleted successfully.")
                 .build();
     }
+
+    @PostMapping("/{eventId}/publish")
+    public ApiResponse<EventResponse> publishEvent(
+            @PathVariable Long eventId) {
+
+        EventResponse response = eventService.publishEvent(eventId);
+
+        return ApiResponse.<EventResponse>builder()
+                .success(true)
+                .message("Event published successfully.")
+                .data(response)
+                .build();
+    }
 }

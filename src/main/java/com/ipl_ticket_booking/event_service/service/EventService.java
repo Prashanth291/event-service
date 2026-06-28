@@ -21,4 +21,5 @@ public interface EventService {
 
     Event findEventEntityById(Long eventId);
 
+    EventResponse publishEvent(Long eventId);
 }

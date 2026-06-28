@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface SeatCategoryRepository extends JpaRepository<SeatCategory, Long> {
@@ -33,4 +34,6 @@ public interface SeatCategoryRepository extends JpaRepository<SeatCategory, Long
             Long eventId
     );
 
+    List<SeatCategory> findAllByEventId(Long eventId);
+    boolean existsByEventId(Long eventId);
 }
